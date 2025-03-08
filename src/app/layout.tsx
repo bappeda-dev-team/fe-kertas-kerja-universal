@@ -1,22 +1,23 @@
 'use client'
 
+import { useState, useEffect } from "react";
+import { AppProvider } from "@/context/AppContext";
 import { Poppins } from "next/font/google";
-import "./globals.css";
 import { Sidebar } from "@/components/global/Sidebar";
 import Header from "@/components/global/Header";
-import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { getUser } from "@/components/lib/Cookie";
 import NextTopLoader from "nextjs-toploader";
+import "./globals.css";
 
 const font = Poppins({
   subsets: ['latin'],
   weight: ['200', '300', '400', '500', '600', '700', '800'],
   display: 'swap', // Mengatur tampilan swap agar tidak ada flash saat font dimuat
 });
+
 export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
 
-  const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME;
   const [isOpen, setIsOpen] = useState<boolean | null>(null);
   const [user, setUser] = useState<any>(null);
   const [isZoomed, setIsZoomed] = useState<boolean | null>(null);
@@ -54,6 +55,8 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
     window.addEventListener('resize', checkZoomLevel);
     return () => window.removeEventListener('resize', checkZoomLevel);
   }, []);
+
+  const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "KERTAS-KERJA";
 
   if (loginPage) {
     return (
@@ -104,11 +107,13 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
         <NextTopLoader
           color="linear-gradient(to right, rgb(134, 239, 172), rgb(59, 130, 246), rgb(147, 51, 234))"
         />
-        {!loginPage && <Sidebar isOpen={isOpen} toggleSidebar={() => toggleSidebar()} isZoomed={isZoomed} />}
-        <div className={`w-full ${isOpen ? 'pl-[16rem]' : ''}`}>
-          {!loginPage && <Header />}
-          <div className={`${font.className} ${loginPage ? "" : "px-4 py-2"}`}>{children}</div>
-        </div>
+        <AppProvider>
+          {!loginPage && <Sidebar isOpen={isOpen} toggleSidebar={() => toggleSidebar()} isZoomed={isZoomed} />}
+          <div className={`w-full ${isOpen ? 'pl-[16rem]' : ''}`}>
+            {!loginPage && <Header />}
+            <div className={`${font.className} ${loginPage ? "" : "px-4 py-2"}`}>{children}</div>
+          </div>
+        </AppProvider>
       </body>
     </html>
   );

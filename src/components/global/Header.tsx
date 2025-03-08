@@ -6,6 +6,7 @@ import Select from "react-select"
 import { getOpdTahun, getUser } from "../lib/Cookie"
 import { AlertNotification } from "./Alert"
 import { getToken } from "../lib/Cookie"
+import UserRoleBadge from "@/components/UserRoleBadges"
 
 interface OptionType {
     value: number;
@@ -34,24 +35,17 @@ const Header = () => {
     useEffect(() => {
         const data = getOpdTahun();
         const fetchUser = getUser();
-        if (data) {
-            if (data.tahun) {
-                const valueTahun = {
-                    value: data.tahun.value,
-                    label: data.tahun.label
-                }
-                setTahun(valueTahun);
-            }
-            if (data.opd) {
-                const valueOpd = {
-                    value: data.opd.value,
-                    label: data.opd.label
-                }
-                setOpd(valueOpd);
-            }
-            if (fetchUser) {
-                setUser(fetchUser.user);
-            }
+
+        if (data?.tahun) {
+            setTahun({ value: data.tahun.value, label: data.tahun.label });
+        }
+
+        if (data?.opd) {
+            setSelectedOpd({ value: data.opd.value, label: data.opd.label });
+        }
+
+        if (fetchUser?.user) {
+            setUser(fetchUser.user);
         }
     }, [])
 
@@ -122,11 +116,11 @@ const Header = () => {
         <div className="flex flex-wrap gap-2 justify-between items-center rounded-2xl mx-2 mt-2 bg-gradient-to-r from-[#182C4E] to-[#17212D] py-4 pr-2 pl-3">
             <div className="flex flex-col text-white max-w-[400px]">
                 {user?.roles == 'super_admin' ?
-                    <h1 className="font-light text-sm">{Opd ? Opd?.label : "Pilih OPD"}</h1>
+                    <h1 className="font-light text-sm">{Opd ? Opd?.label : ""}</h1>
                     :
                     <h1 className="font-light text-sm">{user?.email}</h1>
                 }
-                <h1 className="font-light text-sm">{Tahun ? Tahun?.value : "Pilih Tahun"} - Kab. Madiun</h1>
+                <h1 className="font-light text-sm">{Tahun ? Tahun?.value : ""}</h1>
             </div>
             <div className="flex flex-wrap items-center">
                 {(user?.roles == 'super_admin' || user?.roles == 'reviewer') &&
@@ -183,43 +177,7 @@ const Header = () => {
                 >
                     Aktifkan
                 </button>
-                {user?.roles == "super_admin" &&
-                    <button className="border border-white text-white px-3 py-2 mx-1 min-w-20 max-h-[37.5px] rounded-lg hover:bg-white hover:text-gray-800">Super Admin</button>
-                }
-                {user?.roles == "admin_opd" &&
-                    <button className="border border-white text-white px-3 py-2 mx-1 min-w-20 max-h-[37.5px] rounded-lg hover:bg-white hover:text-gray-800">Admin Opd</button>
-                }
-                {user?.roles == "eselon_1" &&
-                    <button className="border border-white text-white px-3 py-2 mx-1 min-w-20 max-h-[37.5px] rounded-lg hover:bg-white hover:text-gray-800">ASN Level 1</button>
-                }
-                {user?.roles == "eselon_2" &&
-                    <button className="border border-white text-white px-3 py-2 mx-1 min-w-20 max-h-[37.5px] rounded-lg hover:bg-white hover:text-gray-800">ASN Level 2</button>
-                }
-                {user?.roles == "eselon_3" &&
-                    <button className="border border-white text-white px-3 py-2 mx-1 min-w-20 max-h-[37.5px] rounded-lg hover:bg-white hover:text-gray-800">ASN Level 3</button>
-                }
-                {user?.roles == "eselon_4" &&
-                    <button className="border border-white text-white px-3 py-2 mx-1 min-w-20 max-h-[37.5px] rounded-lg hover:bg-white hover:text-gray-800">ASN Level 4</button>
-                }
-                {user?.roles == "level_1" &&
-                    <button className="border border-white text-white px-3 py-2 mx-1 min-w-20 max-h-[37.5px] rounded-lg hover:bg-white hover:text-gray-800">ASN Level 1</button>
-                }
-                {user?.roles == "level_2" &&
-                    <button className="border border-white text-white px-3 py-2 mx-1 min-w-20 max-h-[37.5px] rounded-lg hover:bg-white hover:text-gray-800">ASN Level 2</button>
-                }
-                {user?.roles == "level_3" &&
-                    <button className="border border-white text-white px-3 py-2 mx-1 min-w-20 max-h-[37.5px] rounded-lg hover:bg-white hover:text-gray-800">ASN Level 3</button>
-                }
-                {user?.roles == "level_4" &&
-                    <button className="border border-white text-white px-3 py-2 mx-1 min-w-20 max-h-[37.5px] rounded-lg hover:bg-white hover:text-gray-800">ASN Level 4</button>
-                }
-                {user?.roles == "reviewer" &&
-                    <button className="border border-white text-white px-3 py-2 mx-1 min-w-20 max-h-[37.5px] rounded-lg hover:bg-white hover:text-gray-800">Reviewer</button>
-                }
-                {user?.roles == undefined &&
-                    <button className="border border-white text-white px-3 py-2 mx-1 min-w-20 max-h-[37.5px] rounded-lg hover:bg-white hover:text-gray-800">Loading</button>
-                }
-
+                <UserRoleBadge role={user?.roles} />
                 {/* SOLUSI MULTIPLE ROLES */}
                 {/* {user?.roles?.some((role: string) => ["level_3", "level_4"].includes(role)) && (
                     <button className="border border-white text-white px-3 py-2 mx-1 min-w-20 max-h-[37.5px] rounded-lg hover:bg-white hover:text-gray-800">USER WITH LEVEL</button>
