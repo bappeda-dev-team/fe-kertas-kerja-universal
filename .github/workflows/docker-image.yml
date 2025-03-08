@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build the Docker image
         run: |
-          docker login --username bappeda-dev-team --password ${{ secrets.GH_PASS }} ghcr.io
-          docker build --build-arg NEXT_PUBLIC_API_URL=https://api-kertaskerja.kertaskerja.cc . --file Dockerfile --tag ghcr.io/bappeda-dev-team/kertas-kerja-universal-frontend:latest
-          docker push ghcr.io/bappeda-dev-team/kertas-kerja-universal-frontend:latest
+          docker login --username bappeda-dev-team --password ${{ secrets.GH_TOKEN }} ghcr.io
+          docker build --build-arg NEXT_PUBLIC_API_URL=https://api-kertaskerja-universal.kertaskerja.cc --build-arg NEXT_PUBLIC_APP_NAME=KERTAS-KERJA . --file Dockerfile --tag ghcr.io/bappeda-dev-team/fe-kertas-kerja-universal:latest
+          docker push ghcr.io/bappeda-dev-team/fe-kertas-kerja-universal:latest
           docker logout
