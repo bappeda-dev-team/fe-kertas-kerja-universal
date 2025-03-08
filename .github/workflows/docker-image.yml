@@ -14,5 +14,5 @@ jobs:
         run: |
           docker login --username bappeda-dev-team --password ${{ secrets.GH_PASS }} ghcr.io
           docker build --build-arg NEXT_PUBLIC_API_URL=https://api-kertaskerja.kertaskerja.cc . --file Dockerfile --tag ghcr.io/bappeda-dev-team/kertas-kerja-frontend:latest
-          docker push ghcr.io/bappeda-dev-team/kertas-kerja-frontend:latest
+          docker push ghcr.io/bappeda-dev-team/kertas-kerja-universal-frontend:latest
           docker logout
