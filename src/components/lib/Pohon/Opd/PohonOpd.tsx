@@ -224,7 +224,7 @@ export const PohonOpd: React.FC<pohon> = ({ tema, deleteTrigger }) => {
                         {(User?.roles == 'super_admin' || User?.roles == 'admin_opd' || User?.roles == 'level_1') &&
                             !['Strategic Pemda', 'Tactical Pemda', 'Operational Pemda'].includes(tema.jenis_pohon) &&
                             <div
-                                className={`flex justify-evenly border my-3 py-3 rounded-lg bg-white
+                                className={`flex justify-evenly border my-3 py-3 rounded-lg bg-white hide-on-capture
                                         ${tema.jenis_pohon === "Operational N" && 'border-green-500'}
                                     `}
                             >
@@ -267,7 +267,7 @@ export const PohonOpd: React.FC<pohon> = ({ tema, deleteTrigger }) => {
                             )) &&
                             !['Strategic Pemda', 'Tactical Pemda', 'Operational Pemda'].includes(tema.jenis_pohon) &&
                             <div
-                                className={`flex justify-evenly border my-3 py-3 rounded-lg bg-white
+                                className={`flex justify-evenly border my-3 py-3 rounded-lg bg-white hide-on-capture
                                         ${tema.jenis_pohon === "Operational N" && 'border-green-500'}
                                     `}
                             >
@@ -308,7 +308,7 @@ export const PohonOpd: React.FC<pohon> = ({ tema, deleteTrigger }) => {
                             )) &&
                             !['Strategic Pemda', 'Tactical Pemda', 'Operational Pemda'].includes(tema.jenis_pohon) &&
                             <div
-                                className={`flex justify-evenly border my-3 py-3 rounded-lg bg-white
+                                className={`flex justify-evenly border my-3 py-3 rounded-lg bg-white hide-on-capture
                                         ${tema.jenis_pohon === "Operational N" && 'border-green-500'}
                                     `}
                             >
@@ -347,7 +347,7 @@ export const PohonOpd: React.FC<pohon> = ({ tema, deleteTrigger }) => {
                             )) &&
                             !['Strategic Pemda', 'Tactical Pemda', 'Operational Pemda'].includes(tema.jenis_pohon) &&
                             <div
-                                className={`flex justify-evenly border my-3 py-3 rounded-lg bg-white
+                                className={`flex justify-evenly border my-3 py-3 rounded-lg bg-white hide-on-capture
                                         ${tema.jenis_pohon === "Strategic Pemda" && 'border-black'}
                                         ${tema.jenis_pohon === "Tactical Pemda" && 'border-black'}
                                         ${tema.jenis_pohon === "Operational Pemda" && 'border-black'}
@@ -404,7 +404,7 @@ export const PohonOpd: React.FC<pohon> = ({ tema, deleteTrigger }) => {
                         {/* BUTTON ACTION INSIDE BOX CEK CROSSCUTTING */}
                         {!['Strategic Pemda', 'Tactical Pemda', 'Operational Pemda'].includes(tema.jenis_pohon) &&
                             <div
-                                className={`flex justify-evenly border my-3 py-3 rounded-lg bg-white
+                                className={`flex justify-evenly border my-3 py-3 rounded-lg bg-white hide-on-capture
                                     ${tema.jenis_pohon === "Strategic Pemda" && 'border-black'}
                                     ${tema.jenis_pohon === "Tactical Pemda" && 'border-black'}
                                     ${tema.jenis_pohon === "Operational Pemda" && 'border-black'}
@@ -423,7 +423,7 @@ export const PohonOpd: React.FC<pohon> = ({ tema, deleteTrigger }) => {
                             </div>
                         }
                         {/* footer */}
-                        <div className="flex justify-evenly my-3 py-3">
+                        <div className="flex justify-evenly my-3 py-3 hide-on-capture">
                             {(tema.level_pohon != 4 && (
                                 User?.roles == 'super_admin' ||
                                 User?.roles == 'admin_opd' ||
@@ -721,12 +721,12 @@ export const PohonOpdEdited: React.FC<pohon> = ({ tema, deleteTrigger }) => {
                             {Edited ?
                                 <TablePohonEdited
                                     item={Edited}
-                                    user={User?.roles  }
+                                    user={User?.roles}
                                 />
                                 :
-                                <TablePohon 
+                                <TablePohon
                                     item={tema}
-                                    user={User?.roles  }
+                                    user={User?.roles}
                                 />
                             }
                         </div>
@@ -1596,11 +1596,11 @@ export const TablePohon = (props: any) => {
                         <LoadingClip />
                     </div>
                     :
-                    Review.length == 0 ? 
+                    Review.length == 0 ?
                         <div className="flex mt-2 text-center">
                             <h1 className='text-center bg-white w-full rounded-lg p-2'>tidak ada review</h1>
                         </div>
-                    :
+                        :
                         <div className="flex mt-2">
                             <table className="w-full">
                                 {Review.map((item: Review) => (
@@ -1709,7 +1709,7 @@ export const TablePohon = (props: any) => {
             }
             {/* BUTTON REVIEW */}
             <div
-                className={`flex justify-evenly border my-3 py-3 rounded-lg bg-white
+                className={`flex justify-evenly border my-3 py-3 rounded-lg bg-white hide-on-capture
                         ${tema.jenis_pohon === "Operational N" && 'border-green-500'}
                         `}
             >
