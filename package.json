@@ -22,7 +22,7 @@
     "react-spinners": "^0.14.1",
     "sweetalert2": "^11.6.13",
     "treeflex": "^2.0.1",
-    "uuid": "^11.1.0"
+    "@types/uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
