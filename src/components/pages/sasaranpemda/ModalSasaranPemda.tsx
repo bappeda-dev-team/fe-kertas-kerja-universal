@@ -96,7 +96,7 @@ export function ModalSasaranPemda({
   const [IdNotFound, setIdNotFound] = useState<boolean>(false);
   const [TujuanNotFound, setTujuanNotFound] = useState<boolean>(false);
 
-  const { fields, append, remove, replace } = useFieldArray({
+  const { fields, replace } = useFieldArray({
     control,
     name: "indikator",
   });
@@ -115,6 +115,7 @@ export function ModalSasaranPemda({
           const existingTarget = item.targets.find((t: any) => t.tahun === tahun);
 
           return {
+            id: uuidv4(), // Generate a unique ID for React keys
             tahun,
             target: existingTarget?.target || "",
             satuan: existingTarget?.satuan || "",
@@ -460,7 +461,7 @@ export function ModalSasaranPemda({
                 indikator Sasaran Pemda :
               </label>
               {fields.map((field, index) => (
-                <React.Fragment key={index}>
+                <React.Fragment key={`${index}-${uuidv4()}`}>
                   <div className="flex flex-col bg-gray-300 my-2 py-2 px-2 rounded-lg">
                     <Controller
                       name={`indikator.${index}.indikator`}
@@ -473,6 +474,7 @@ export function ModalSasaranPemda({
                           </label>
                           <input
                             {...field}
+                            readOnly={true}
                             className="border px-4 py-2 rounded-lg"
                             placeholder={`Masukkan nama indikator ${index + 1}`}
                           />
@@ -521,7 +523,7 @@ export function ModalSasaranPemda({
                   <div className="flex flex-wrap justify-between gap-1">
                     {field.target.map((_, subindex) => (
                       <div
-                        key={`${index}-${subindex}`}
+                        key={`${index}-${subindex}-${uuidv4()}`}
                         className="flex flex-col py-1 px-3 border border-gray-200 rounded-lg"
                       >
                         <label className="text-base text-center text-gray-700">

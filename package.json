@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/uuid": "^10.0.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.0",
     "jwt-decode": "^4.0.0",
@@ -22,7 +23,7 @@
     "react-spinners": "^0.14.1",
     "sweetalert2": "^11.6.13",
     "treeflex": "^2.0.1",
-    "@types/uuid": "^10.0.0"
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",
