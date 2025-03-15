@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { TbBook } from "react-icons/tb";
-import SupportingPokin from './laporanItems/SupportingPokin';
 import { usePathname } from "next/navigation";
+
+import { LaporanItems } from './laporanItems';
 
 const PathNameRegex = /^\/laporan\/.*/;
 
@@ -32,7 +33,9 @@ export default function LaporanMenu() {
           ? 'px-3 py-2 flex flex-col border-l-2 border-white rounded-b-xl ml-2  max-h-screen opacity-100'
           : 'max-h-0 opacity-0 pointer-events-none'}`}>
         {/* LABEL LAPORAN USULAN */}
-        <SupportingPokin />
+        {LaporanItems.map((Item, index) => (
+          <Item key={`laporan-item-${index}`} />
+        ))}
       </div >
     </>
   )

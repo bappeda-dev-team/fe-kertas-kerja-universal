@@ -1,17 +1,16 @@
 import { TbExclamationMark } from "react-icons/tb";
 import Link from 'next/link';
+import { useIsOpened } from "../useIsOpened";
 
-function isOpened() {
-  return true ? "bg-white text-gray-800" : "hover:bg-slate-500"
-}
+const PathName = '#';
 
 export default function Inovasi() {
   return (
-    <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl ${isOpened()}`}>
-      <Link href="#">
+    <Link href={PathName}>
+      <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl ${useIsOpened(PathName)}`}>
         <TbExclamationMark className="text-xl" />
         <span className={`origin-left duration-200`}>Inovasi</span>
-      </Link>
-    </li>
+      </li>
+    </Link>
   )
 }
