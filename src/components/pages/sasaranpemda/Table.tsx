@@ -67,15 +67,17 @@ interface table {
     tahun_list: string[];
 }
 
-const Table: React.FC<table> = ({id_periode, tahun_awal, tahun_akhir, jenis, tahun_list}) => {
-
+function Table({ id_periode, tahun_awal, tahun_akhir, jenis, tahun_list }: table) {
     const [Data, setData] = useState<Sasaran[]>([]);
 
+    // TODO: refactor to Provider Pattern do
     const [User, setUser] = useState<any>(null);
     const [SelectedOpd, setSelectedOpd] = useState<any>(null);
     const [Tahun, setTahun] = useState<any>(null);
     const token = getToken();
+    // end
 
+    // TODO: refactor to global condition when no periode
     const [PeriodeNotFound, setPeriodeNotFound] = useState<boolean | null>(null);
     const [Error, setError] = useState<boolean | null>(null);
     const [Loading, setLoading] = useState<boolean | null>(null);
@@ -91,6 +93,7 @@ const Table: React.FC<table> = ({id_periode, tahun_awal, tahun_akhir, jenis, tah
 
     const [Show, setShow] = useState<{ [key: string]: boolean }>({});
 
+    // TODO: target for Summary pattern
     useEffect(() => {
         const data = getOpdTahun();
         const fetchUser = getUser();
@@ -349,9 +352,11 @@ const Table: React.FC<table> = ({id_periode, tahun_awal, tahun_akhir, jenis, tah
                                                                         </tr>
                                                                         {/* INDIKATOR */}
                                                                         {s.indikator.length == 0 ?
-                                                                            <td className="border-r border-b border-emerald-500 px-6 py-4 bg-yellow-500 text-white" colSpan={30}>
-                                                                                Indikator Kosong / Belum di Inputkan
-                                                                            </td>
+                                                                            <tr>
+                                                                                <td className="border-r border-b border-emerald-500 px-6 py-4 bg-yellow-500 text-white" colSpan={30}>
+                                                                                    Indikator Kosong / Belum di Inputkan
+                                                                                </td>
+                                                                            </tr>
                                                                             :
                                                                             s.indikator.map((i: Indikator) => (
                                                                                 <tr key={i.id}>
@@ -370,9 +375,11 @@ const Table: React.FC<table> = ({id_periode, tahun_awal, tahun_akhir, jenis, tah
                                                                     </React.Fragment>
                                                                 ))
                                                                 :
-                                                                <td className="border-r border-b border-emerald-500 px-6 py-4 bg-red-400 text-white" colSpan={30}>
-                                                                    Sasaran Pemda belum di buat
-                                                                </td>
+                                                                <tr>
+                                                                    <td className="border-r border-b border-emerald-500 px-6 py-4 bg-red-400 text-white" colSpan={30}>
+                                                                        Sasaran Pemda belum di buat
+                                                                    </td>
+                                                                </tr>
                                                             }
                                                         </React.Fragment>
                                                     )
