@@ -9,7 +9,7 @@ import { TahunNull } from "@/components/global/OpdTahunNull";
 import { getToken, getUser } from "@/components/lib/Cookie";
 import { TbPencil, TbArrowBadgeDownFilled, TbTrash, TbCirclePlus } from "react-icons/tb";
 import { ModalSasaranPemda } from "./ModalSasaranPemda";
-
+import { v4 as uuidv4 } from 'uuid'; // Import UUID generator
 
 interface Target {
     id: string;
@@ -260,13 +260,13 @@ function Table({ id_periode, tahun_awal, tahun_akhir, jenis, tahun_list }: table
                                                 <td rowSpan={2} className="border-r border-b px-6 py-3 min-w-[200px]">Indikator</td>
                                                 <td rowSpan={2} className="border-r border-b px-6 py-3 min-w-[100px]">Rumus Perhitungan</td>
                                                 <td rowSpan={2} className="border-r border-b px-6 py-3 min-w-[100px]">Sumber Data</td>
-                                                {tahun_list.map((item: any) => (
-                                                    <th key={item} colSpan={2} className="border-l border-b px-6 py-3 min-w-[100px]">{item}</th>
+                                                {tahun_list.map((tahun: any) => (
+                                                    <th key={tahun} colSpan={2} className="border-l border-b px-6 py-3 min-w-[100px]">{tahun}</th>
                                                 ))}
                                             </tr>
                                             <tr className="bg-emerald-500 text-white">
                                                 {tahun_list.map((item: any) => (
-                                                    <React.Fragment key={item}>
+                                                    <React.Fragment key={`target-tahun-${item}-${uuidv4()}`}>
                                                         <th className="border-l border-b px-6 py-3 min-w-[50px]">Target</th>
                                                         <th className="border-l border-b px-6 py-3 min-w-[50px]">Satuan</th>
                                                     </React.Fragment>
@@ -364,7 +364,7 @@ function Table({ id_periode, tahun_awal, tahun_akhir, jenis, tahun_list }: table
                                                                                     <td className="border-b border-r border-emerald-500 px-6 py-4">{i.rumus_perhitungan || "-"}</td>
                                                                                     <td className="border-b border-r border-emerald-500 px-6 py-4">{i.sumber_data || "-"}</td>
                                                                                     {i.target.map((t: Target) => (
-                                                                                        <React.Fragment key={t.id}>
+                                                                                        <React.Fragment key={`${t.id}-${uuidv4()}`}>
                                                                                             <td className="border-b border-r border-emerald-500 px-6 py-4 text-center">{t.target || "-"}</td>
                                                                                             <td className="border-b border-r border-emerald-500 px-6 py-4 text-center">{t.satuan || "-"}</td>
                                                                                         </React.Fragment>
