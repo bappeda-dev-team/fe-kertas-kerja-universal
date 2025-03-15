@@ -1,17 +1,16 @@
 import { TbShoppingCartDollar } from "react-icons/tb";
 import Link from 'next/link';
+import { useIsOpened } from "../useIsOpened";
 
-function isOpened() {
-  return true ? "bg-white text-gray-800" : "hover:bg-slate-500"
-}
+const PathName = '/laporan/rincianbelanja';
 
 export default function RincianBelanja() {
   return (
-    <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl ${isOpened()}`}>
-      <Link href="/rincianbelanja">
+    <Link href={PathName}>
+      <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl ${useIsOpened(PathName)}`}>
         <TbShoppingCartDollar className="text-xl" />
         <span className={`origin-left duration-200`}>Rincian Belanja</span>
-      </Link>
-    </li>
+      </li>
+    </Link>
   )
 }
