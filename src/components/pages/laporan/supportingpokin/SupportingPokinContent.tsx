@@ -58,66 +58,78 @@ const NestedTable = ({ data, level = 0 }: { data: DataItem[], level?: number }) 
               </td>
             </tr>
           ) : (
-            data.map((item, index) => (
-              <>
-                {/* Parent Row */}
-                <tr
-                  key={item.id}
-                  className={`cursor-pointer ${openItems[item.id] ? "bg-emerald-100" : "hover:bg-gray-100"}`}
-                >
-                  {/* No */}
-                  <td className="border-r border-b px-6 py-4 text-center">{index + 1}</td>
+            data.map((item, index) => {
+              const hasIndikator = item.indikator && item.indikator.length > 0;
 
-                  {/* Tema (Expandable if has child) */}
-                  <td className="border-r border-b px-6 py-4">
-                    <div className="flex items-center space-x-2">
-                      {item.childs && (
-                        <TbArrowBadgeDownFilled
-                          className={`cursor-pointer transition-transform duration-200 ${openItems[item.id] ? "" : "-rotate-90"
-                            }`}
-                          onClick={() => toggleItem(item.id)}
-                        />
-                      )}
-                      <span>{item.tema}</span>
-                    </div>
-                  </td>
+              return (
+                <>
+                  {hasIndikator
+                    ? item?.indikator?.map((ind, indIndex) =>
+                      ind.targets.map((t, tIndex) => (
+                        <tr key={`${item.id}-${ind.id_indikator}-${t.id_target}`} className="hover:bg-gray-100">
+                          {/* Only show No and Tema in the first row */}
+                          {indIndex === 0 && tIndex === 0 && (
+                            <>
+                              <td rowSpan={item?.indikator?.reduce((acc, ind) => acc + ind.targets.length, 0)}
+                                className="border-r border-b px-6 py-4 text-center">
+                                {index + 1}
+                              </td>
+                              <td rowSpan={item?.indikator?.reduce((acc, ind) => acc + ind.targets.length, 0)}
+                                className="border-r border-b px-6 py-4">
+                                <div className="flex items-center space-x-2">
+                                  {item.childs && (
+                                    <TbArrowBadgeDownFilled
+                                      className={`cursor-pointer transition-transform duration-200 ${openItems[item.id] ? "" : "-rotate-90"
+                                        }`}
+                                      onClick={() => toggleItem(item.id)}
+                                    />
+                                  )}
+                                  <span>{item.tema}</span>
+                                </div>
+                              </td>
+                              <td rowSpan={item?.indikator?.reduce((acc, ind) => acc + ind.targets.length, 0)}
+                                className="border-r border-b px-6 py-4 text-center">
+                                {item.keterangan || "-"}
+                              </td>
+                            </>
+                          )}
 
-                  {/* Keterangan */}
-                  <td className="border-r border-b px-6 py-4 text-center">
-                    {item.keterangan || "-"}
-                  </td>
+                          {/* Indikator */}
+                          {tIndex === 0 && (
+                            <td rowSpan={ind.targets.length} className="border-r border-b px-6 py-4 text-center">
+                              {ind.nama_indikator}
+                            </td>
+                          )}
 
-                  {/* Indikator */}
-                  <td className="border-r border-b px-6 py-4 text-center">
-                    {item.indikator && item.indikator.length > 0
-                      ? item.indikator.map((ind) => <p key={ind.id_indikator}>{ind.nama_indikator}</p>)
-                      : "-"}
-                  </td>
-
-                  {/* Target/Satuan */}
-                  <td className="border-r border-b px-6 py-4 text-center">
-                    {item.indikator && item.indikator.length > 0
-                      ? item.indikator.map((ind) =>
-                        ind.targets.map((t) => (
-                          <p key={t.id_target}>
+                          {/* Target/Satuan */}
+                          <td className="border-r border-b px-6 py-4 text-center">
                             {t.target} / {t.satuan}
-                          </p>
-                        ))
-                      )
-                      : "-"}
-                  </td>
-                </tr>
+                          </td>
+                        </tr>
+                      ))
+                    )
+                    : (
+                      <tr key={item.id} className="hover:bg-gray-100">
+                        <td className="border-r border-b px-6 py-4 text-center">{index + 1}</td>
+                        <td className="border-r border-b px-6 py-4">{item.tema}</td>
+                        <td className="border-r border-b px-6 py-4 text-center">{item.keterangan || "-"}</td>
+                        <td className="border-r border-b px-6 py-4 text-center">-</td>
+                        <td className="border-r border-b px-6 py-4 text-center">-</td>
+                      </tr>
+                    )
+                  }
 
-                {/* Render Child Rows Recursively */}
-                {openItems[item.id] && item.childs && (
-                  <tr>
-                    <td colSpan={5} className="p-0">
-                      <NestedTable data={item.childs} level={level + 1} />
-                    </td>
-                  </tr>
-                )}
-              </>
-            ))
+                  {/* Render Child Rows Recursively */}
+                  {openItems[item.id] && item.childs && (
+                    <tr>
+                      <td colSpan={5} className="p-0">
+                        <NestedTable data={item.childs} level={level + 1} />
+                      </td>
+                    </tr>
+                  )}
+                </>
+              );
+            })
           )}
         </tbody>
       </table>
