@@ -161,7 +161,7 @@ function SupportingPokinContent() {
 
   // Fetch Data
   useEffect(() => {
-    if (!User?.roles || !Tahun?.value || !SelectedOpd?.value) return;
+    const kodeOpd = User?.roles == 'super_admin' ? SelectedOpd?.value : User?.kode_opd
 
     const fetchSasaran = async () => {
       setLoading(true);
@@ -169,7 +169,7 @@ function SupportingPokinContent() {
 
       try {
         const API_URL = process.env.NEXT_PUBLIC_API_URL;
-        const response = await fetch(`${API_URL}/laporan/supporting_pokin/${SelectedOpd.value}/${Tahun.value}`, {
+        const response = await fetch(`${API_URL}/laporan/supporting_pokin/${kodeOpd}/${Tahun?.value}`, {
           headers: {
             Authorization: `${token}`,
             'Content-Type': 'application/json',
