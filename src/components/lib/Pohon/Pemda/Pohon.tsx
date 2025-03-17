@@ -399,10 +399,12 @@ export const Pohon: React.FC<pohon> = ({ tema, deleteTrigger, user, tahun }) => 
                             ${(tema.jenis_pohon === "Operational" || tema.jenis_pohon === "Operational N") && 'border-white'}
                         `}
             >
-              <ButtonSkyBorder onClick={handleNewReview}>
-                <TbBookmarkPlus className="mr-1" />
-                Tambah Review
-              </ButtonSkyBorder>
+              {user === 'reviewer' &&
+                <ButtonSkyBorder onClick={handleNewReview}>
+                  <TbBookmarkPlus className="mr-1" />
+                  Tambah Review
+                </ButtonSkyBorder>
+              }
               <button
                 className={`px-3 flex justify-center items-center py-1 rounded-lg border border-red-400 text-red-400 hover:bg-red-400 hover:text-white`}
                 onClick={() => {
@@ -441,7 +443,7 @@ export const Pohon: React.FC<pohon> = ({ tema, deleteTrigger, user, tahun }) => 
               />
             </div>
             {/* BUTTON ACTION INSIDE BOX */}
-            {user != 'reviewer' &&
+            {user === 'super_admin' &&
               <div
                 className={`flex justify-evenly border my-3 py-3 rounded-lg bg-white border-black
                                 ${tema.jenis_pohon === "Strategic" && 'border-white'}
@@ -528,7 +530,7 @@ export const Pohon: React.FC<pohon> = ({ tema, deleteTrigger, user, tahun }) => 
                   <TbEye className='mr-1' />
                   {Show ? 'Sembunyikan' : 'Tampilkan'}
                 </ButtonBlackBorder>
-                {(Show && user != 'reviewer') &&
+                {(Show && user === 'super_admin') &&
                   <>
                     {/* TOMBOL ADD POHON SESUAI URUTAN AKARNYA */}
                     {tema.level_pohon !== 3 &&
@@ -940,10 +942,12 @@ export const PohonEdited: React.FC<pohon> = ({ tema, deleteTrigger, user }) => {
                             ${(tema.jenis_pohon === "Operational" || tema.jenis_pohon === "Operational N") && 'border-white'}
                         `}
             >
-              <ButtonSkyBorder onClick={handleNewReview}>
-                <TbBookmarkPlus className="mr-1" />
-                Tambah Review
-              </ButtonSkyBorder>
+              {user === 'reviewer' &&
+                <ButtonSkyBorder onClick={handleNewReview}>
+                  <TbBookmarkPlus className="mr-1" />
+                  Tambah Review
+                </ButtonSkyBorder>
+              }
               <button
                 className={`px-3 flex justify-center items-center py-1 rounded-lg border border-red-400 text-red-400 hover:bg-red-400 hover:text-white`}
                 onClick={() => {
@@ -1025,7 +1029,8 @@ export const PohonEdited: React.FC<pohon> = ({ tema, deleteTrigger, user }) => {
             {(
               tema.jenis_pohon !== 'Operational Pemda' &&
               tema.jenis_pohon !== 'Operational' &&
-              tema.jenis_pohon !== 'Operational N'
+              tema.jenis_pohon !== 'Operational N' &&
+              user === 'super_admin'
             ) &&
               <div className="flex flex-wrap gap-3 justify-evenly my-3 py-3">
                 <ButtonBlackBorder className={`px-3 bg-white flex justify-center items-center py-1 bg-gradient-to-r rounded-lg`}
