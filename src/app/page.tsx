@@ -1,9 +1,7 @@
-'use client'
-
 const Dashboard = () => {
-  return(
+  return (
     <>
-    <h1>halaman dashboard</h1>
+      <h1>halaman dashboard</h1>
     </>
   )
 }
