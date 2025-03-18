@@ -31,6 +31,7 @@ import Link from 'next/link';
 import "@/app/globals.css";
 import { logout, getUser } from '../lib/Cookie';
 import IkuOpd from '@/app/ikuopd/page';
+import DataMasterMenu from './sidebar/DataMasterMenu';
 import LaporanMenu from "./sidebar/LaporanMenu"
 
 interface SidebarProps {
@@ -2229,106 +2230,7 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
           </Link>
           {/* LABEL DATA MASTER */}
           {User?.roles == 'super_admin' &&
-            <li
-              className={`flex items-center font-medium gap-x-2 cursor-pointer p-2 rounded-xl hover:bg-slate-500 transition-all duration-300 ease-in-out`}
-              onClick={() => setDataMaster(DataMaster ? false : true)}
-            >
-              <TbDatabaseCog className="text-xl" />
-              <span className={`${!isOpen && 'hidden'} origin-left duration-200`}>Data Master</span>
-            </li>
-          }
-          {/* SUB MENU DATA MASTER */}
-          {User?.roles == 'super_admin' &&
-            <div className={`transition-all duration-300 ease-in-out ${DataMaster ? 'px-3 py-2 flex flex-col border-l-2 border-white rounded-b-xl ml-2  max-h-screen opacity-100' : 'max-h-0 opacity-0 pointer-events-none'}`}>
-              <Link href="/DataMaster/masterlembaga">
-                <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl transition-all duration-300 ease-in-out ${MasterLembaga ? "bg-white text-gray-800" : "hover:bg-slate-500"}`}>
-                  <TbBuildingEstate className="text-xl" />
-                  <span className={`${!isOpen && 'hidden'} origin-left duration-200`}>Master Lembaga</span>
-                </li>
-              </Link>
-              <Link href="/DataMaster/masteropd">
-                <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl transition-all duration-300 ease-in-out ${MasterOPD ? "bg-white text-gray-800" : "hover:bg-slate-500"}`}>
-                  <TbBuilding className="text-xl" />
-                  <span className={`${!isOpen && 'hidden'} origin-left duration-200`}>Master OPD</span>
-                </li>
-              </Link>
-              <Link href="/DataMaster/masterrole">
-                <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl transition-all duration-300 ease-in-out ${MasterRole ? "bg-white text-gray-800" : "hover:bg-slate-500"}`}>
-                  <TbHexagonLetterR className="text-xl" />
-                  <span className={`${!isOpen && 'hidden'} origin-left duration-200`}>Master Role</span>
-                </li>
-              </Link>
-              <Link href="/DataMaster/masterpegawai">
-                <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl transition-all duration-300 ease-in-out ${MasterPegawai ? "bg-white text-gray-800" : "hover:bg-slate-500"}`}>
-                  <TbUsers className="text-xl" />
-                  <span className={`${!isOpen && 'hidden'} origin-left duration-200`}>Master Pegawai</span>
-                </li>
-              </Link>
-              <Link href="/DataMaster/masterperiode">
-                <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl transition-all duration-300 ease-in-out ${MasterPeriode ? "bg-white text-gray-800" : "hover:bg-slate-500"}`}>
-                  <TbCalendar className="text-xl" />
-                  <span className={`${!isOpen && 'hidden'} origin-left duration-200`}>Master Periode</span>
-                </li>
-              </Link>
-              <Link href="/DataMaster/masteruser">
-                <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl transition-all duration-300 ease-in-out ${MasterUser ? "bg-white text-gray-800" : "hover:bg-slate-500"}`}>
-                  <TbUser className="text-xl" />
-                  <span className={`${!isOpen && 'hidden'} origin-left duration-200`}>Master User</span>
-                </li>
-              </Link>
-              <Link href="/DataMaster/masterjabatan">
-                <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl transition-all duration-300 ease-in-out ${MasterJabatan ? "bg-white text-gray-800" : "hover:bg-slate-500"}`}>
-                  <TbBadges className="text-xl" />
-                  <span className={`${!isOpen && 'hidden'} origin-left duration-200`}>Master Jabatan</span>
-                </li>
-              </Link>
-              <Link href="/DataMaster/masterusulan">
-                <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl transition-all duration-300 ease-in-out ${LevelPohon ? "bg-white text-gray-800" : "hover:bg-slate-500"}`}>
-                  <TbApps className="text-xl" />
-                  <span className={`${!isOpen && 'hidden'} origin-left duration-200`}>Master Usulan</span>
-                </li>
-              </Link>
-              <li
-                className={`flex gap-x-2 cursor-pointer p-2 rounded-xl transition-all duration-300 ease-in-out hover:bg-slate-500`}
-                onClick={() => setMasterProgramKegiatan(MasterProgramKegiatan ? false : true)}
-              >
-                <TbFile3D className="text-xl mt-1" />
-                <span className={`${!isOpen && 'hidden'} origin-left duration-200`}>Master Program Kegiatan</span>
-              </li>
-              {/* DATA MASTER PROGRAM KEGIATAN */}
-              <div className={`transition-all duration-300 ease-in-out ${MasterProgramKegiatan ? 'px-3 py-2 flex flex-col border-l-2 border-white rounded-b-xl ml-2  max-h-screen opacity-100' : 'max-h-0 opacity-0 pointer-events-none'}`}>
-                <Link href="/DataMaster/masterprogramkegiatan/urusan">
-                  <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl transition-all duration-300 ease-in-out ${MasterUrusan ? "bg-white text-gray-800" : "hover:bg-slate-500"}`}>
-                    <TbFileChart className="text-xl" />
-                    <span className={`${!isOpen && 'hidden'} origin-left duration-200`}>Urusan</span>
-                  </li>
-                </Link>
-                <Link href="/DataMaster/masterprogramkegiatan/bidangurusan">
-                  <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl transition-all duration-300 ease-in-out ${MasterBidangUrusan ? "bg-white text-gray-800" : "hover:bg-slate-500"}`}>
-                    <TbFileDelta className="text-xl" />
-                    <span className={`${!isOpen && 'hidden'} origin-left duration-200`}>Bidang Urusan</span>
-                  </li>
-                </Link>
-                <Link href="/DataMaster/masterprogramkegiatan/program">
-                  <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl transition-all duration-300 ease-in-out ${MasterProgram ? "bg-white text-gray-800" : "hover:bg-slate-500"}`}>
-                    <TbFileDots className="text-xl" />
-                    <span className={`${!isOpen && 'hidden'} origin-left duration-200`}>Program</span>
-                  </li>
-                </Link>
-                <Link href="/DataMaster/masterprogramkegiatan/kegiatan">
-                  <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl transition-all duration-300 ease-in-out ${MasterKegiatan ? "bg-white text-gray-800" : "hover:bg-slate-500"}`}>
-                    <TbFileCode className="text-xl" />
-                    <span className={`${!isOpen && 'hidden'} origin-left duration-200`}>Kegiatan</span>
-                  </li>
-                </Link>
-                <Link href="/DataMaster/masterprogramkegiatan/subkegiatan">
-                  <li className={`flex items-center gap-x-2 cursor-pointer p-2 rounded-xl transition-all duration-300 ease-in-out ${MasterSubKegiatan ? "bg-white text-gray-800" : "hover:bg-slate-500"}`}>
-                    <TbFileCode2 className="text-xl" />
-                    <span className={`${!isOpen && 'hidden'} origin-left duration-200`}>Sub Kegiatan</span>
-                  </li>
-                </Link>
-              </div>
-            </div>
+            <DataMasterMenu />
           }
           {/* LABEL PERENCANAAN PEMDA */}
           {(User?.roles == 'super_admin' || User?.roles == 'reviewer') &&
