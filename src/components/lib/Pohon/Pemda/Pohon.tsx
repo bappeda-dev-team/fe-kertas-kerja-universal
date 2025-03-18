@@ -399,7 +399,7 @@ export const Pohon: React.FC<pohon> = ({ tema, deleteTrigger, user, tahun }) => 
                             ${(tema.jenis_pohon === "Operational" || tema.jenis_pohon === "Operational N") && 'border-white'}
                         `}
             >
-              {user === 'reviewer' &&
+              {user == 'reviewer' &&
                 <ButtonSkyBorder onClick={handleNewReview}>
                   <TbBookmarkPlus className="mr-1" />
                   Tambah Review
@@ -443,7 +443,7 @@ export const Pohon: React.FC<pohon> = ({ tema, deleteTrigger, user, tahun }) => 
               />
             </div>
             {/* BUTTON ACTION INSIDE BOX */}
-            {user === 'super_admin' &&
+            {user == 'super_admin' &&
               <div
                 className={`flex justify-evenly border my-3 py-3 rounded-lg bg-white border-black
                                 ${tema.jenis_pohon === "Strategic" && 'border-white'}
@@ -530,7 +530,7 @@ export const Pohon: React.FC<pohon> = ({ tema, deleteTrigger, user, tahun }) => 
                   <TbEye className='mr-1' />
                   {Show ? 'Sembunyikan' : 'Tampilkan'}
                 </ButtonBlackBorder>
-                {(Show && user === 'super_admin') &&
+                {(Show && user == 'super_admin') &&
                   <>
                     {/* TOMBOL ADD POHON SESUAI URUTAN AKARNYA */}
                     {tema.level_pohon !== 3 &&
@@ -942,7 +942,7 @@ export const PohonEdited: React.FC<pohon> = ({ tema, deleteTrigger, user }) => {
                             ${(tema.jenis_pohon === "Operational" || tema.jenis_pohon === "Operational N") && 'border-white'}
                         `}
             >
-              {user === 'reviewer' &&
+              {user == 'reviewer' &&
                 <ButtonSkyBorder onClick={handleNewReview}>
                   <TbBookmarkPlus className="mr-1" />
                   Tambah Review
@@ -1030,7 +1030,7 @@ export const PohonEdited: React.FC<pohon> = ({ tema, deleteTrigger, user }) => {
               tema.jenis_pohon !== 'Operational Pemda' &&
               tema.jenis_pohon !== 'Operational' &&
               tema.jenis_pohon !== 'Operational N' &&
-              user === 'super_admin'
+              user == 'super_admin'
             ) &&
               <div className="flex flex-wrap gap-3 justify-evenly my-3 py-3">
                 <ButtonBlackBorder className={`px-3 bg-white flex justify-center items-center py-1 bg-gradient-to-r rounded-lg`}

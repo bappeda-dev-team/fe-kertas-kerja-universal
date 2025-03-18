@@ -14,7 +14,7 @@ export default function LaporanMenu() {
   const currentPath = usePathname();
   const isOpened = useIsOpened(currentPath);
 
-  const [laporanOpen, setLaporanOpen] = useState<boolean | null>(false);
+  const [laporanOpen, setLaporanOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setLaporanOpen(isOpened);

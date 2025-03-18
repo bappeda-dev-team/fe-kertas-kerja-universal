@@ -916,7 +916,7 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
       setPerencanaanKota(true);
       setRPJMD(false);
       // admin_opd
-      setPerencanaanOPD(false);
+      setPerencanaanOPD(true);
       setMasterUsulanOpd(false);
       setRenstra(false);
       // asn
