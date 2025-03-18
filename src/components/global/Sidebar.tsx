@@ -1,38 +1,38 @@
 'use client'
+import "@/app/globals.css";
 import { useAppContext } from '@/context/AppContext';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useParams, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import {
-  TbApps, TbChecklist, TbRefreshAlert,
-  TbLogout, TbBook2, TbBulb, TbFileAlert, TbTooltip, TbBinaryTree, TbBuildingFortress,
-  TbBuildingCommunity, TbDatabaseCog, TbHome, TbFileDelta, TbFile3D,
-  TbCircleArrowLeftFilled, TbBadges, TbBuilding,
-  TbBuildingEstate,
-  TbFileChart,
-  TbFileDots,
-  TbFileCode,
-  TbFileCode2,
-  TbUsers,
+  TbApps,
   TbArrowUpFromArc,
-  TbUser,
-  TbHexagonLetterR,
+  TbBinaryTree,
   TbBinaryTree2,
-  TbTarget,
-  TbMapPin,
-  TbChartBar,
+  TbBook2,
+  TbBuildingCommunity,
+  TbBuildingFortress,
+  TbBulb,
   TbCalendarShare,
-  TbMessageReport,
-  TbCalendar,
+  TbChartBar,
+  TbChecklist,
+  TbCircleArrowLeftFilled,
+  TbFileAlert,
+  TbHexagonLetterM,
   TbHexagonLetterV,
-  TbHexagonLetterM
+  TbHome,
+  TbLogout,
+  TbMapPin,
+  TbMessageReport,
+  TbRefreshAlert,
+  TbTarget,
+  TbTooltip,
+  TbUser
 } from "react-icons/tb";
-import Image from 'next/image';
-import { usePathname, useParams } from 'next/navigation';
-import Link from 'next/link';
-import "@/app/globals.css";
-import { logout, getUser } from '../lib/Cookie';
-import IkuOpd from '@/app/ikuopd/page';
+import { getUser, logout } from '../lib/Cookie';
 import DataMasterMenu from './sidebar/DataMasterMenu';
-import LaporanMenu from "./sidebar/LaporanMenu"
+import LaporanMenu from "./sidebar/LaporanMenu";
 
 interface SidebarProps {
   isOpen: boolean | null;
@@ -43,31 +43,14 @@ interface SidebarProps {
 // TODO: REFACTOR SIDEBAR LOGIC
 export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
-  const { appName, setAppName } = useAppContext();
+  const { appName } = useAppContext();
   const [User, setUser] = useState<any>(null);
   const { id } = useParams();
   const url = usePathname();
   //state menu, submenu, subsmenu
   const [Dashboard, setDashboard] = useState<boolean | null>(null);
-  const [DataMaster, setDataMaster] = useState<boolean | null>(null);
-  const [MasterOPD, setMasterOPD] = useState<boolean | null>(null);
-  const [MasterPegawai, setMasterPegawai] = useState<boolean | null>(null);
-  const [MasterPeriode, setMasterPeriode] = useState<boolean | null>(null);
-  const [LevelPohon, setLevelPohon] = useState<boolean | null>(null);
-  const [MasterJabatan, setMasterJabatan] = useState<boolean | null>(null);
-  const [MasterUser, setMasterUser] = useState<boolean | null>(null);
-  const [MasterRole, setMasterRole] = useState<boolean | null>(null);
-  const [MasterUsulanPemda, setMasterUsulanPemda] = useState<boolean | null>(null);
-  const [MasterProgramKegiatan, setMasterProgramKegiatan] = useState<boolean | null>(null);
-  const [MasterUrusan, setMasterUrusan] = useState<boolean | null>(null);
-  const [MasterBidangUrusan, setMasterBidangUrusan] = useState<boolean | null>(null);
-  const [MasterProgram, setMasterProgram] = useState<boolean | null>(null);
-  const [MasterKegiatan, setMasterKegiatan] = useState<boolean | null>(null);
-  const [MasterSubKegiatan, setMasterSubKegiatan] = useState<boolean | null>(null);
-  const [MasterLembaga, setMasterLembaga] = useState<boolean | null>(null);
   const [PerencanaanKota, setPerencanaanKota] = useState<boolean | null>(null);
   const [TematikKota, setTematikKota] = useState<boolean | null>(null);
-  const [SubTematik, setSubTematik] = useState<boolean | null>(null);
   const [KotaPohonKinerjaKota, setKotaPohonKinerjaKota] = useState<boolean | null>(null);
   const [RPJMD, setRPJMD] = useState<boolean | null>(null);
   const [Visi, setVisi] = useState<boolean | null>(null);
@@ -110,8 +93,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -124,22 +105,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(true);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -168,8 +133,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/DataMaster/masteropd") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(true);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -182,22 +145,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(true);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -225,8 +172,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/DataMaster/masterpegawai") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(true);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -239,22 +184,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(true);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -283,8 +212,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/DataMaster/masterperiode") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(true);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -297,22 +224,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(true);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -340,8 +251,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/DataMaster/masterusulan") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(true);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -354,22 +263,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(true);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -398,8 +291,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/DataMaster/masterprogramkegiatan/bidangurusan") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(true);
-      setMasterProgramKegiatan(true);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -412,22 +303,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(true);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -455,8 +330,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/DataMaster/masterprogramkegiatan/kegiatan") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(true);
-      setMasterProgramKegiatan(true);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -469,22 +342,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(true);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -512,8 +369,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/DataMaster/masterprogramkegiatan/program") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(true);
-      setMasterProgramKegiatan(true);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -526,22 +381,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(true);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -569,8 +408,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/DataMaster/masterprogramkegiatan/subkegiatan") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(true);
-      setMasterProgramKegiatan(true);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -583,22 +420,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(true);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -626,8 +447,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/DataMaster/masterprogramkegiatan/urusan") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(true);
-      setMasterProgramKegiatan(true);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -640,22 +459,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(true);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -683,8 +486,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/DataMaster/masterjabatan") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(true);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -697,22 +498,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(true);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -740,8 +525,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/DataMaster/masterlembaga") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(true);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -754,22 +537,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(true);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -797,8 +564,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/DataMaster/masteruser") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(true);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -811,22 +576,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(true);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -854,8 +603,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/DataMaster/masterrole") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(true);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -868,22 +615,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(true);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -912,8 +643,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/pohonkinerjapemda") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(true);
       setRPJMD(false);
       // admin_opd
@@ -926,22 +655,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(true);
@@ -969,8 +682,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/tematikpemda") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(true);
       setRPJMD(false);
       // admin_opd
@@ -983,22 +694,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(true);
       setKotaPohonKinerjaKota(false);
@@ -1026,8 +721,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/visi") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(true);
       setRPJMD(true);
       // admin_opd
@@ -1040,22 +733,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -1083,8 +760,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/misi") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(true);
       setRPJMD(true);
       // admin_opd
@@ -1097,22 +772,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -1140,8 +799,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/tujuanpemda") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(true);
       setRPJMD(true);
       // admin_opd
@@ -1154,22 +811,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -1197,8 +838,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/sasaranpemda") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(true);
       setRPJMD(true);
       // admin_opd
@@ -1211,22 +850,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -1254,8 +877,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/ikupemda") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(true);
       setRPJMD(true);
       // admin_opd
@@ -1268,22 +889,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -1312,8 +917,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/tujuanopd") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -1326,22 +929,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -1369,8 +956,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/sasaranopd") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -1383,22 +968,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -1426,8 +995,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/ikuopd") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -1440,22 +1007,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -1482,24 +1033,8 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     }
     if (url == "/MasterUsulan/mastermusrenbang") {
       setDashboard(false);
-      setDataMaster(false);
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterProgramKegiatan(false);
-      setMasterBidangUrusan(false);
-      setMasterKegiatan(false);
-      setMasterProgram(false);
-      setMasterSubKegiatan(false);
-      setMasterUrusan(false);
-      setMasterJabatan(false);
-      setMasterLembaga(false);
-      setMasterRole(false);
-      setMasterUser(false);
       setPerencanaanKota(false);
       setTematikKota(false);
-      setSubTematik(false);
       setKotaPohonKinerjaKota(false);
       setPerencanaanOPD(true);
       setMasterUsulanOpd(true);
@@ -1520,24 +1055,8 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     }
     if (url == "/MasterUsulan/masterpokokpikiran") {
       setDashboard(false);
-      setDataMaster(false);
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterProgramKegiatan(false);
-      setMasterBidangUrusan(false);
-      setMasterKegiatan(false);
-      setMasterProgram(false);
-      setMasterSubKegiatan(false);
-      setMasterUrusan(false);
-      setMasterJabatan(false);
-      setMasterLembaga(false);
-      setMasterRole(false);
-      setMasterUser(false);
       setPerencanaanKota(false);
       setTematikKota(false);
-      setSubTematik(false);
       setKotaPohonKinerjaKota(false);
       setPerencanaanOPD(true);
       setMasterUsulanOpd(true);
@@ -1558,24 +1077,8 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     }
     if (url == "/MasterUsulan/mastermandatori") {
       setDashboard(false);
-      setDataMaster(false);
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterProgramKegiatan(false);
-      setMasterBidangUrusan(false);
-      setMasterKegiatan(false);
-      setMasterProgram(false);
-      setMasterSubKegiatan(false);
-      setMasterUrusan(false);
-      setMasterJabatan(false);
-      setMasterLembaga(false);
-      setMasterRole(false);
-      setMasterUser(false);
       setPerencanaanKota(false);
       setTematikKota(false);
-      setSubTematik(false);
       setKotaPohonKinerjaKota(false);
       setPerencanaanOPD(true);
       setMasterUsulanOpd(true);
@@ -1596,24 +1099,8 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     }
     if (url == "/MasterUsulan/masterinisiatif") {
       setDashboard(false);
-      setDataMaster(false);
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterProgramKegiatan(false);
-      setMasterBidangUrusan(false);
-      setMasterKegiatan(false);
-      setMasterProgram(false);
-      setMasterSubKegiatan(false);
-      setMasterUrusan(false);
-      setMasterJabatan(false);
-      setMasterLembaga(false);
-      setMasterRole(false);
-      setMasterUser(false);
       setPerencanaanKota(false);
       setTematikKota(false);
-      setSubTematik(false);
       setKotaPohonKinerjaKota(false);
       setPerencanaanOPD(true);
       setMasterUsulanOpd(true);
@@ -1635,8 +1122,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/pohonkinerjaopd") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -1649,22 +1134,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -1692,8 +1161,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/pohoncascadingopd") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -1707,21 +1174,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
       // HALAMAN
       setDashboard(false);
       // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -1749,8 +1201,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/useropd") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -1763,22 +1213,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -1812,8 +1246,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     ) {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -1826,22 +1258,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -1869,8 +1285,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/rincianbelanja") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -1883,22 +1297,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
@@ -1925,23 +1323,7 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     }
     if (url == "/musrenbang") {
       setDashboard(false);
-      setDataMaster(false);
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterProgramKegiatan(false);
-      setMasterBidangUrusan(false);
-      setMasterKegiatan(false);
-      setMasterProgram(false);
-      setMasterSubKegiatan(false);
-      setMasterUrusan(false);
-      setMasterJabatan(false);
-      setMasterLembaga(false);
-      setMasterRole(false);
-      setMasterUser(false);
       setTematikKota(false);
-      setSubTematik(false);
       setPerencanaanKota(false);
       setPerencanaanOPD(false);
       setMasterUsulanOpd(false);
@@ -1964,23 +1346,7 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     }
     if (url == "/pokokpikiran") {
       setDashboard(false);
-      setDataMaster(false);
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterProgramKegiatan(false);
-      setMasterBidangUrusan(false);
-      setMasterKegiatan(false);
-      setMasterProgram(false);
-      setMasterSubKegiatan(false);
-      setMasterUrusan(false);
-      setMasterJabatan(false);
-      setMasterLembaga(false);
-      setMasterRole(false);
-      setMasterUser(false);
       setTematikKota(false);
-      setSubTematik(false);
       setPerencanaanKota(true);
       setPerencanaanOPD(false);
       setMasterUsulanOpd(false);
@@ -2003,23 +1369,7 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     }
     if (url == "/mandatori") {
       setDashboard(false);
-      setDataMaster(false);
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterProgramKegiatan(false);
-      setMasterBidangUrusan(false);
-      setMasterKegiatan(false);
-      setMasterProgram(false);
-      setMasterSubKegiatan(false);
-      setMasterUrusan(false);
-      setMasterJabatan(false);
-      setMasterLembaga(false);
-      setMasterRole(false);
-      setMasterUser(false);
       setTematikKota(false);
-      setSubTematik(false);
       setPerencanaanKota(true);
       setPerencanaanOPD(false);
       setMasterUsulanOpd(false);
@@ -2042,23 +1392,7 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     }
     if (url == "/inisiatif") {
       setDashboard(false);
-      setDataMaster(false);
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterProgramKegiatan(false);
-      setMasterBidangUrusan(false);
-      setMasterKegiatan(false);
-      setMasterProgram(false);
-      setMasterSubKegiatan(false);
-      setMasterUrusan(false);
-      setMasterJabatan(false);
-      setMasterLembaga(false);
-      setMasterRole(false);
-      setMasterUser(false);
       setTematikKota(false);
-      setSubTematik(false);
       setPerencanaanKota(true);
       setPerencanaanOPD(false);
       setMasterUsulanOpd(false);
@@ -2081,23 +1415,7 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     }
     if (url == "/manajemenresiko") {
       setDashboard(false);
-      setDataMaster(false);
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterProgramKegiatan(false);
-      setMasterBidangUrusan(false);
-      setMasterKegiatan(false);
-      setMasterProgram(false);
-      setMasterSubKegiatan(false);
-      setMasterUrusan(false);
-      setMasterJabatan(false);
-      setMasterLembaga(false);
-      setMasterRole(false);
-      setMasterUser(false);
       setTematikKota(false);
-      setSubTematik(false);
       setPerencanaanKota(true);
       setPerencanaanOPD(false);
       setMasterUsulanOpd(false);
@@ -2119,8 +1437,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
     if (url == "/pohoncascading") {
       // SLIDE MENU
       // super_admin
-      setDataMaster(false);
-      setMasterProgramKegiatan(false);
       setPerencanaanKota(false);
       setRPJMD(false);
       // admin_opd
@@ -2133,22 +1449,6 @@ export const Sidebar = ({ isZoomed, isOpen, toggleSidebar }: SidebarProps) => {
 
       // HALAMAN
       setDashboard(false);
-      // data master
-      setMasterOPD(false);
-      setMasterPegawai(false);
-      setMasterPeriode(false);
-      setLevelPohon(false);
-      setMasterJabatan(false);
-      setMasterUsulanPemda(false);
-      // masterprogramkegiatan
-      setMasterUrusan(false);
-      setMasterBidangUrusan(false);
-      setMasterProgram(false);
-      setMasterKegiatan(false);
-      setMasterSubKegiatan(false);
-      setMasterLembaga(false);
-      setMasterUser(false);
-      setMasterRole(false);
       // perencanaan pemda
       setTematikKota(false);
       setKotaPohonKinerjaKota(false);
