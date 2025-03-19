@@ -3,7 +3,7 @@
 import { FiHome } from "react-icons/fi";
 import { TbCirclePlus } from "react-icons/tb";
 import { ButtonSky } from "@/components/global/Button";
-import Table from "@/components/pages/datamaster/masteropd/Table";
+import { TableMasterOpd } from "@/components/pages/datamaster/masteropd";
 
 
 function masteropd() {
@@ -30,7 +30,7 @@ function masteropd() {
                         </ButtonSky>
                     </div>
                 </div>
-                <Table />
+                <TableMasterOpd />
             </div>
         </>
     )
