@@ -1,23 +1,19 @@
 'use client'
 
-import '@/components/pages/Pohon/treeflex.css'
-import { useState, useEffect, useRef } from 'react';
-import { TbPencil, TbCheck, TbCircleLetterXFilled, TbCirclePlus, TbHandStop, TbPointer, TbSettings, TbHourglass, TbCopy } from 'react-icons/tb';
-import { ButtonGreenBorder, ButtonSkyBorder, ButtonRedBorder, ButtonBlackBorder, ButtonBlack } from '@/components/global/Button';
-import { LoadingBeat, LoadingButtonClip } from '@/components/global/Loading';
+import { ButtonBlack, ButtonBlackBorder, ButtonGreenBorder, ButtonSkyBorder } from '@/components/global/Button';
+import { LoadingBeat } from '@/components/global/Loading';
 import { OpdTahunNull, TahunNull } from '@/components/global/OpdTahunNull';
-import { PohonOpd } from '@/components/lib/Pohon/Opd/PohonOpd';
+import { getOpdTahun, getToken, getUser } from '@/components/lib/Cookie';
 import { FormPohonOpd } from '@/components/lib/Pohon/Opd/FormPohonOpd';
-import { getUser, getToken, getOpdTahun } from '@/components/lib/Cookie';
-import { ModalPohonPemda, ModalPohonCrosscutting } from './ModalPohonPemda';
+import { PohonOpd } from '@/components/lib/Pohon/Opd/PohonOpd';
+import '@/components/pages/Pohon/treeflex.css';
+import html2canvas from "html2canvas";
+import React, { useEffect, useRef, useState } from 'react';
+import { TbCheck, TbCirclePlus, TbCopy, TbHandStop, TbHourglass, TbPointer, TbSettings } from 'react-icons/tb';
 import { ModalTujuanOpd } from '../../tujuanopd/ModalTujuanOpd';
 import { ModalClone } from '../ModalClone';
-import html2canvas from "html2canvas";
+import { ModalPohonCrosscutting, ModalPohonPemda } from './ModalPohonPemda';
 
-interface OptionType {
-  value: number;
-  label: string;
-}
 interface PokinPemda {
   value: number;
   label: string;
@@ -44,10 +40,6 @@ interface childs {
   indikators: string;
   childs: childs[];
 }
-interface TujuanOpd {
-  id_tujuan_opd: number;
-  tujuan: string;
-}
 
 const PokinOpd = () => {
   const [User, setUser] = useState<any>(null);
@@ -55,7 +47,6 @@ const PokinOpd = () => {
   const [SelectedOpd, setSelectedOpd] = useState<any>(null);
   const [Pokin, setPokin] = useState<pokin | null>(null);
   const [Loading, setLoading] = useState<boolean | null>(null);
-  const [IsLoading, setIsLoading] = useState<boolean>(false);
 
   const [Kendali, setKendali] = useState<boolean>(true);
   const [OpenModalTujuanOpd, setOpenModalTujuanOpd] = useState<boolean>(false);

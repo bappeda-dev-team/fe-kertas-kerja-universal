@@ -3,7 +3,7 @@ import { AlertNotification } from "../global/Alert";
 
 // Fungsi untuk menyimpan nilai ke cookies
 export const setCookie = (name: string, value: any) => {
-    document.cookie = `${name}=${value}; path=/;`;
+  document.cookie = `${name}=${value}; path=/;`;
 };
 
 export const getCookie = (name: string): string | null => {
@@ -38,15 +38,15 @@ export const login = async (username: string, password: string): Promise<boolean
         // Simpan token di cookie
         document.cookie = `token=${token}; path=/;`;
         document.cookie = `user=${JSON.stringify(decoded)}; path=/;`;
-        AlertNotification("Login Berhasil", "Berhasil Login" , "success", 1000)
+        AlertNotification("Login Berhasil", "Berhasil Login", "success", 1000)
         return true;
       } catch (decodeError) {
-        AlertNotification("Login Gagal", "Gagal Login" , "error", 1000)
+        AlertNotification("Login Gagal", "Gagal Login", "error", 1000)
         console.error('Error decoding token:', decodeError);
         return false;
       }
     } else if (response.status === 400) {
-        AlertNotification("Login Gagal", "NIP atau Password Salah" , "error", 1000)
+      AlertNotification("Login Gagal", "NIP atau Password Salah", "error", 1000)
       return false;
     } else {
       console.log(`Login gagal: Status ${response.status}`);
@@ -75,7 +75,7 @@ export const logout = () => {
 
 export const getUser = () => {
   const get_user = getCookie("user");
-  if(get_user){
+  if (get_user) {
     return {
       user: JSON.parse(get_user)
     };
