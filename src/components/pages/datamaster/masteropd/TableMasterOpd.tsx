@@ -64,7 +64,6 @@ export default function TableMasterOpd() {
         } else {
           setDataNull(false);
           setOpd(data);
-          console.log(data)
           setError(false);
         }
         setOpd(data);
