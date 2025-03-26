@@ -2,9 +2,9 @@ import { TbBinaryTree } from "react-icons/tb";
 import Link from "next/link";
 import { useIsOpened } from "../useIsOpened"
 
-const PathName = '/pohonkinerjapemda'
+const PathName = '/PerencanaanOpd/pohonkinerjapemda-opd'
 
-export default function PohonKinerjaPemda() {
+export default function PohonKinerjaPemdaOpd() {
   return (
     <Link href={PathName}>
       <li className={`flex items-center text-sm gap-x-2 cursor-pointer p-2 rounded-xl ${useIsOpened(PathName)}`}>
