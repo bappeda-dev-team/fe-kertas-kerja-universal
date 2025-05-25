@@ -1,5 +1,13 @@
 name: Docker Image CI
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: bappeda-dev-team/fe-kertas-kerja-universal
+  VERSION: latest
+  NEXT_PUBLIC_API_URL: https://localhost:3000
+  NEXT_PUBLIC_APP_NAME: "KERTAS-KERJA"
+  NEXT_PUBLIC_CLIENT_USER: "XX"
+
 on:
   push:
     branches: ["main"]
@@ -10,9 +18,23 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Build the Docker image
+
+      - name: Log into container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GH_PAT }}
+
+      - name: Build container image
         run: |
-          docker login --username bappeda-dev-team --password ${{ secrets.GH_PASS }} ghcr.io
-          docker build . --file Dockerfile --tag ghcr.io/bappeda-dev-team/fe-kertas-kerja-universal:latest
-          docker push ghcr.io/bappeda-dev-team/fe-kertas-kerja-universal:latest
-          docker logout
+          docker build \
+          --build-arg NEXT_PUBLIC_API_URL=${{ env.NEXT_PUBLIC_API_URL }}\
+          --build-arg NEXT_PUBLIC_APP_NAME=${{ env.NEXT_PUBLIC_APP_NAME }}\
+          --build-arg NEXT_PUBLIC_CLIENT_USER=${{ env.NEXT_PUBLIC_CLIENT_USER }}\
+          -f Dockerfile \
+          -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }} \
+          .
+
+      - name: Publish container image
+        run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}

@@ -30,6 +30,9 @@ ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 ARG NEXT_PUBLIC_APP_NAME
 ENV NEXT_PUBLIC_APP_NAME=${NEXT_PUBLIC_APP_NAME}
 
+ARG NEXT_PUBLIC_CLIENT_USER
+ENV NEXT_PUBLIC_CLIENT_USER=${NEXT_PUBLIC_CLIENT_USER}
+
 # Next.js collects completely anonymous telemetry data about general usage. Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line to disable telemetry at build time
 # ENV NEXT_TELEMETRY_DISABLED 1
@@ -65,6 +68,11 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 
+ARG NEXT_PUBLIC_APP_NAME
+ENV NEXT_PUBLIC_APP_NAME=${NEXT_PUBLIC_APP_NAME}
+
+ARG NEXT_PUBLIC_CLIENT_USER
+ENV NEXT_PUBLIC_CLIENT_USER=${NEXT_PUBLIC_CLIENT_USER}
 # Uncomment the following line to disable telemetry at run time
 # ENV NEXT_TELEMETRY_DISABLED 1
 
