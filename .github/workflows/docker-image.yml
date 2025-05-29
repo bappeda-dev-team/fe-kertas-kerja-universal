@@ -33,8 +33,7 @@ jobs:
           --build-arg NEXT_PUBLIC_APP_NAME=${{ env.NEXT_PUBLIC_APP_NAME }}\
           --build-arg NEXT_PUBLIC_CLIENT_USER=${{ env.NEXT_PUBLIC_CLIENT_USER }}\
           -f Dockerfile \
-          -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }} \
-          .
+          -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
 
       - name: Publish container image
         run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
